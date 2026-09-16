@@ -24,11 +24,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightbox = document.getElementById('lightbox');
   const lightboxImage = document.getElementById('lightboxImage');
   const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxPrev = document.getElementById('lightboxPrev');
+  const lightboxNext = document.getElementById('lightboxNext');
 
   if (lightbox && lightboxImage && lightboxClose) {
-    const openLightbox = (src, alt) => {
-      lightboxImage.src = src;
-      lightboxImage.alt = alt || '';
+    const thumbs = Array.from(document.querySelectorAll('.thumb'));
+    let currentIndex = 0;
+
+    const showAt = (index) => {
+      if (thumbs.length === 0) return;
+      currentIndex = (index + thumbs.length) % thumbs.length;
+      const thumb = thumbs[currentIndex];
+      lightboxImage.src = thumb.dataset.full;
+      lightboxImage.alt = thumb.querySelector('img')?.alt || '';
+    };
+
+    const openLightbox = (index) => {
+      showAt(index);
       lightbox.hidden = false;
       document.body.style.overflow = 'hidden';
     };
@@ -39,20 +51,22 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = '';
     };
 
-    document.querySelectorAll('.thumb').forEach(thumb => {
-      thumb.addEventListener('click', () => {
-        const full = thumb.dataset.full;
-        const alt = thumb.querySelector('img')?.alt;
-        openLightbox(full, alt);
-      });
+    thumbs.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => openLightbox(index));
     });
 
     lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev?.addEventListener('click', () => showAt(currentIndex - 1));
+    lightboxNext?.addEventListener('click', () => showAt(currentIndex + 1));
+
     lightbox.addEventListener('click', (event) => {
       if (event.target === lightbox) closeLightbox();
     });
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && !lightbox.hidden) closeLightbox();
+      if (lightbox.hidden) return;
+      if (event.key === 'Escape') closeLightbox();
+      if (event.key === 'ArrowLeft') showAt(currentIndex - 1);
+      if (event.key === 'ArrowRight') showAt(currentIndex + 1);
     });
   }
 
