@@ -201,11 +201,12 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
   width: 100%;
   aspect-ratio: 4 / 5;
   overflow: hidden;
+  background: var(--paper-alt);
 }
 .thumb img{
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   transition: transform 0.5s ease;
 }
 .thumb:hover img{ transform: scale(1.03); }
@@ -331,6 +332,27 @@ figcaption{
   color: #fdfcf9;
   font-size: 28px;
   line-height: 1;
+}
+.lightbox-prev,
+.lightbox-next{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fdfcf9;
+  font-size: 44px;
+  line-height: 1;
+  padding: 8px 14px;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+.lightbox-prev:hover,
+.lightbox-next:hover{ opacity: 1; }
+.lightbox-prev{ left: 8px; }
+.lightbox-next{ right: 8px; }
+
+@media (max-width: 640px){
+  .lightbox-prev,
+  .lightbox-next{ font-size: 32px; padding: 6px 10px; }
 }
 
 /* ---------- Responsive ---------- */
