@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ainhoa Agüera — Estilista de moda</title>
+<meta name="description" content="Ainhoa Agüera. Artista multidisciplinar y estilista de moda. Estilismo, departamento de arte y obra personal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="wordmark" href="index.html">Ainhoa Agüera</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+  <nav class="site-nav" id="siteNav">
+    <a href="index.html" aria-current="page">Trabajo</a>
+    <a href="about.html">Sobre mí</a>
+    <a href="contact.html">Contacto</a>
+  </nav>
+</header>
+
+<main>
+  <section class="intro-line">
+    <p>Estilista de moda &amp; artista multidisciplinar — Almería</p>
+  </section>
+
+  <section class="cat-links">
+
+    <a class="cat-link" href="estilismo.html">
+      <img src="assets/work/01.jpg" alt="Estilismo" onerror="this.closest('.cat-link').classList.add('is-empty')">
+      <span class="cat-link-label">Estilismo</span>
+    </a>
+
+    <a class="cat-link" href="arte.html">
+      <img src="assets/work/10.jpg" alt="Departamento de arte" onerror="this.closest('.cat-link').classList.add('is-empty')">
+      <span class="cat-link-label">Departamento de arte</span>
+    </a>
+
+    <a class="cat-link" href="personal.html">
+      <img src="assets/personal/01.jpg" alt="Obra personal" onerror="this.closest('.cat-link').classList.add('is-empty')">
+      <span class="cat-link-label">Obra personal</span>
+    </a>
+
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
