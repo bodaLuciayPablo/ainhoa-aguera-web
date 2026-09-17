@@ -2,12 +2,12 @@
 :root{
   --paper: #ffffff;
   --paper-alt: #f1efe9;
-  --ink: #14130f;
-  --ink-soft: #6b685f;
-  --sand: #a98f6b;
+  --ink: #000000;
+  --ink-soft: #000000;
+  --sand: #000000;
   --line: #e0dcd2;
   --font-display: 'Fraunces', Georgia, serif;
-  --font-ui: 'Work Sans', -apple-system, sans-serif;
+  --font-ui: Arial, -apple-system, sans-serif;
   --gutter: clamp(20px, 4vw, 56px);
 }
 
@@ -73,7 +73,7 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
 .site-nav a:hover{ color: var(--ink); }
 .site-nav a[aria-current="page"]{
   color: var(--ink);
-  border-color: var(--ink);
+  border-color: var(--sand);
 }
 
 .nav-toggle{
@@ -195,8 +195,6 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
 }
 .tile{ margin: 0; }
 
-.tile.span-wide{ grid-column: span 2; }
-
 .thumb{
   display: block;
   width: 100%;
@@ -243,8 +241,8 @@ figcaption{
   text-align: center;
 }
 .about h2{
-  font-family: var(--font-display);
-  font-weight: 400;
+  font-family: var(--font-ui);
+  font-weight: 600;
   font-style: normal;
   font-size: 15px;
   letter-spacing: 0.16em;
@@ -252,7 +250,7 @@ figcaption{
   margin: 0 0 32px;
 }
 .about-lead{
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
   font-weight: 600;
   font-style: normal;
   font-size: 26px;
@@ -274,8 +272,8 @@ figcaption{
   text-align: center;
 }
 .contact-page h2{
-  font-family: var(--font-display);
-  font-weight: 400;
+  font-family: var(--font-ui);
+  font-weight: 600;
   font-style: normal;
   font-size: 15px;
   letter-spacing: 0.16em;
@@ -285,7 +283,7 @@ figcaption{
   max-width: 560px;
 }
 .contact-link{
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
   font-weight: 400;
   font-size: 22px;
   text-decoration: none;
@@ -383,6 +381,8 @@ figcaption{
   .site-nav.is-open{ max-height: 240px; padding: 4px var(--gutter) 20px; }
   .site-nav a{
     padding: 10px 0;
+    width: 100%;
+    text-align: right;
   }
 }
 
