@@ -201,7 +201,6 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
   width: 100%;
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  background: var(--paper-alt);
 }
 .thumb img{
   width: 100%;
