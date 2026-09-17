@@ -73,7 +73,7 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
 .site-nav a:hover{ color: var(--ink); }
 .site-nav a[aria-current="page"]{
   color: var(--ink);
-  border-color: var(--sand);
+  border-color: var(--ink);
 }
 
 .nav-toggle{
@@ -383,8 +383,6 @@ figcaption{
   .site-nav.is-open{ max-height: 240px; padding: 4px var(--gutter) 20px; }
   .site-nav a{
     padding: 10px 0;
-    width: 100%;
-    text-align: right;
   }
 }
 
