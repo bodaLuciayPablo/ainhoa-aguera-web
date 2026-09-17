@@ -195,6 +195,8 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
 }
 .tile{ margin: 0; }
 
+.tile.span-wide{ grid-column: span 2; }
+
 .thumb{
   display: block;
   width: 100%;
