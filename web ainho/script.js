@@ -77,3 +77,38 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+function initMasonry() {
+  const grid = document.querySelector('.tile-grid');
+  if (!grid) return;
+
+  const tiles = Array.from(grid.children);
+  if (tiles.length === 0) return;
+
+  const columnCount = window.innerWidth <= 480 ? 2
+    : window.innerWidth <= 900 ? 3
+    : 4;
+
+  grid.innerHTML = '';
+  const columns = [];
+  for (let i = 0; i < columnCount; i++) {
+    const col = document.createElement('div');
+    col.className = 'tile-grid-col';
+    grid.appendChild(col);
+    columns.push(col);
+  }
+
+  tiles.forEach(tile => {
+    let shortest = columns[0];
+    columns.forEach(col => {
+      if (col.offsetHeight < shortest.offsetHeight) shortest = col;
+    });
+    shortest.appendChild(tile);
+  });
+}
+
+window.addEventListener('load', initMasonry);
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(initMasonry, 200);
+});
