@@ -77,16 +77,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
+/* Order-preserving masonry: distributes tiles into balanced columns
+   while keeping their original document order as the guide */
+let lastColumnCount = null;
+
+function getColumnCount() {
+  return window.innerWidth <= 480 ? 2
+    : window.innerWidth <= 900 ? 3
+    : 4;
+}
+
 function initMasonry() {
   const grid = document.querySelector('.tile-grid');
   if (!grid) return;
 
-  const tiles = Array.from(grid.children);
-  if (tiles.length === 0) return;
+  const columnCount = getColumnCount();
+  if (columnCount === lastColumnCount) return; // breakpoint didn't change — do nothing
+  lastColumnCount = columnCount;
 
-  const columnCount = window.innerWidth <= 480 ? 2
-    : window.innerWidth <= 900 ? 3
-    : 4;
+  const tiles = Array.from(grid.children).filter(el => !el.classList.contains('tile-grid-col'))
+    .concat(Array.from(grid.querySelectorAll('.tile-grid-col > *')));
+  if (tiles.length === 0) return;
 
   grid.innerHTML = '';
   const columns = [];
