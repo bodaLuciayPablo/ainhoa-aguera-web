@@ -28,19 +28,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightboxNext = document.getElementById('lightboxNext');
 
   if (lightbox && lightboxImage && lightboxClose) {
-    const thumbs = Array.from(document.querySelectorAll('.thumb'));
+    let currentImages = [];
     let currentIndex = 0;
 
     const showAt = (index) => {
-      if (thumbs.length === 0) return;
-      currentIndex = (index + thumbs.length) % thumbs.length;
-      const thumb = thumbs[currentIndex];
-      lightboxImage.src = thumb.dataset.full;
-      lightboxImage.alt = thumb.querySelector('img')?.alt || '';
+      if (currentImages.length === 0) return;
+      currentIndex = (index + currentImages.length) % currentImages.length;
+      lightboxImage.src = currentImages[currentIndex];
+      const hasMultiple = currentImages.length > 1;
+      if (lightboxPrev) lightboxPrev.hidden = !hasMultiple;
+      if (lightboxNext) lightboxNext.hidden = !hasMultiple;
     };
 
-    const openLightbox = (index) => {
-      showAt(index);
+    const openLightbox = (thumb) => {
+      currentImages = (thumb.dataset.full || '')
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean);
+      lightboxImage.alt = thumb.querySelector('img')?.alt || '';
+      showAt(0);
       lightbox.hidden = false;
       document.body.style.overflow = 'hidden';
     };
@@ -51,8 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = '';
     };
 
-    thumbs.forEach((thumb, index) => {
-      thumb.addEventListener('click', () => openLightbox(index));
+    document.querySelectorAll('.thumb').forEach(thumb => {
+      thumb.addEventListener('click', () => openLightbox(thumb));
     });
 
     lightboxClose.addEventListener('click', closeLightbox);
