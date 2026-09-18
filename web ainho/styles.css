@@ -207,13 +207,20 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
   width: 100%;
   overflow: hidden;
   position: relative;
+  background: var(--paper-alt); /* neutral placeholder while the photo loads in */
 }
 .thumb img{
   display: block;
   width: 100%;
   height: auto;
-  transition: transform 0.5s ease;
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  /* Safety net: if script.js fails for any reason, force the photo to
+     show after a couple of seconds instead of staying invisible forever. */
+  animation: img-reveal-fallback 0s 2.5s forwards;
 }
+@keyframes img-reveal-fallback{ to{ opacity: 1; } }
+.thumb img.is-loaded{ opacity: 1; animation: none; }
 .thumb:hover img{ transform: scale(1.03); }
 
 .video-embed{
@@ -358,6 +365,26 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
   max-height: 90vh;
   object-fit: contain;
 }
+/* Credit for the open photo — on mobile a tap opens the lightbox directly
+   (there's no hover), so this is the only place those users can read the
+   caption, including the "Asistencia a ..." credit. Always visible here,
+   unlike the hover-only caption on the grid itself. */
+.lightbox-caption{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  margin: 0;
+  padding: 0 calc(var(--gutter) + 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: center;
+  pointer-events: none;
+}
+.lightbox-caption[hidden]{ display: none; }
+.lightbox-caption .cap-a{ color: #fdfcf9; }
+.lightbox-caption .cap-b{ color: rgba(253,252,249,0.78); }
 .lightbox-close{
   position: absolute;
   top: 20px;
