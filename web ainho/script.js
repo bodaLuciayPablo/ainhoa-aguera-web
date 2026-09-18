@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Lightbox — only present on gallery pages */
   const lightbox = document.getElementById('lightbox');
   const lightboxImage = document.getElementById('lightboxImage');
+  const lightboxCaption = document.getElementById('lightboxCaption');
   const lightboxClose = document.getElementById('lightboxClose');
   const lightboxPrev = document.getElementById('lightboxPrev');
   const lightboxNext = document.getElementById('lightboxNext');
@@ -40,12 +41,24 @@ document.addEventListener('DOMContentLoaded', () => {
       if (lightboxNext) lightboxNext.hidden = !hasMultiple;
     };
 
+    /* On mobile a tap goes straight from thumbnail to lightbox — there's
+       no hover to reveal the on-photo caption first. So the credit (and
+       the "Asistencia a ..." text) gets copied into the lightbox itself,
+       where everyone, touch or mouse, can actually read it. */
     const openLightbox = (thumb) => {
       currentImages = (thumb.dataset.full || '')
         .split(',')
         .map(s => s.trim())
         .filter(Boolean);
       lightboxImage.alt = thumb.querySelector('img')?.alt || '';
+
+      if (lightboxCaption) {
+        const figcaption = thumb.closest('figure')?.querySelector('figcaption');
+        const hasText = figcaption && figcaption.textContent.trim().length > 0;
+        lightboxCaption.innerHTML = hasText ? figcaption.innerHTML : '';
+        lightboxCaption.hidden = !hasText;
+      }
+
       showAt(0);
       lightbox.hidden = false;
       document.body.style.overflow = 'hidden';
@@ -88,12 +101,12 @@ function getColumnCount() {
     : 4;
 }
 
-function initMasonry() {
+function initMasonry(force) {
   const grid = document.querySelector('.tile-grid');
   if (!grid) return;
 
   const columnCount = getColumnCount();
-  if (columnCount === lastColumnCount) return; // breakpoint didn't change — do nothing
+  if (!force && columnCount === lastColumnCount) return; // breakpoint didn't change — do nothing
   lastColumnCount = columnCount;
 
   const tiles = Array.from(grid.children).filter(el => !el.classList.contains('tile-grid-col'))
@@ -118,9 +131,22 @@ function initMasonry() {
   });
 }
 
-window.addEventListener('load', initMasonry);
+/* Run immediately — this script tag sits at the end of <body>, so the
+   gallery markup already exists by the time it executes. Waiting for
+   window's "load" event (as before) meant sitting with big, unboxed
+   images until every photo AND the video had finished downloading —
+   that's the ugly flash on pages with lots of images, like estilismo.
+   We still do one forced re-pass on "load" to rebalance column heights
+   once the real image sizes are known. */
+initMasonry();
+window.addEventListener('load', () => initMasonry(true));
 let resizeTimer;
 window.addEventListener('resize', () => {
   clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(initMasonry, 200);
+  // Unforced: initMasonry() itself bails out if the column count hasn't
+  // actually changed, so harmless resize noise (mobile address bar
+  // showing/hiding, opening the burger menu, the on-screen keyboard...)
+  // doesn't tear down and rebuild the whole grid for nothing. Forcing a
+  // rebuild here was what made things flicker oddly on mobile.
+  resizeTimer = setTimeout(() => initMasonry(), 200);
 });
