@@ -207,19 +207,14 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
   width: 100%;
   overflow: hidden;
   position: relative;
+  background: var(--paper-alt); /* neutral placeholder while the photo loads in */
 }
 .thumb img{
   display: block;
   width: 100%;
   height: auto;
-  opacity: 0;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  /* Safety net: if script.js fails for any reason, force the photo to
-     show after a couple of seconds instead of staying invisible forever. */
-  animation: img-reveal-fallback 0s 2.5s forwards;
+  transition: transform 0.5s ease;
 }
-@keyframes img-reveal-fallback{ to{ opacity: 1; } }
-.thumb img.is-loaded{ opacity: 1; animation: none; }
 .thumb:hover img{ transform: scale(1.03); }
 
 .video-embed{
@@ -264,6 +259,13 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
 .tile:hover .tile-caption,
 .tile:focus-within .tile-caption{
   opacity: 1;
+}
+/* Touchscreens don't have a real hover — relying on it there is exactly
+   why the credit showed up on some photos and not others (it depends on
+   the browser's shaky "tap simulates hover" behaviour). On any device
+   without true hover, just show the caption outright. */
+@media (hover: none){
+  .tile-caption{ opacity: 1; }
 }
 .cap-a{
   font-size: 11px;
