@@ -208,6 +208,7 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
   width: 100%;
   overflow: hidden;
   position: relative;
+  background: var(--paper-alt); /* neutral placeholder while the photo loads in */
 }
 .thumb img{
   display: block;
@@ -260,13 +261,10 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
 .tile:focus-within .tile-caption{
   opacity: 1;
 }
-/* Touchscreens don't have a real hover — relying on it there is exactly
-   why the credit showed up on some photos and not others (it depends on
-   the browser's shaky "tap simulates hover" behaviour). On any device
-   without true hover, just show the caption outright. */
-@media (hover: none){
-  .tile-caption{ opacity: 1; }
-}
+/* Touchscreens don't have a real hover, so the title/gradient caption
+   never shows in the grid there — only the small ✱ assist mark stays
+   visible. The full credit still shows up once the photo is opened,
+   via the caption inside the lightbox (openLightbox() in script.js). */
 .cap-a{
   font-size: 11px;
   letter-spacing: 0.06em;
