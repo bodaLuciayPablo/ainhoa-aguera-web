@@ -208,7 +208,6 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
   width: 100%;
   overflow: hidden;
   position: relative;
-  background: var(--paper-alt); /* neutral placeholder while the photo loads in */
 }
 .thumb img{
   display: block;
