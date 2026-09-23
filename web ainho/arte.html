@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Estilismo — Ainhoa Agüera</title>
+<title>Set Designer — Ainhoa Agüera</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
 </header>
 
 <main>
-  <p class="crumb"><a href="index.html">Trabajo</a> — Estilismo</p>
+  <p class="crumb"><a href="index.html">Trabajo</a> — Set Designer</p>
 
   <!-- Cada foto muestra sus créditos al pasar el cursor (o al tocar, en móvil).
        Las fotos de asistencia llevan la clase "tile tile--asistencia": eso
@@ -32,86 +32,56 @@
   <section class="work">
     <div class="tile-grid">
 
-   <figure class="tile">
-  <button class="thumb" data-full="estilismos/estilismos1.0.jpg, estilismos/estilismos1.1.jpg" aria-label="Ampliar imagen">
-    <img src="estilismos/estilismos1.0.jpg" alt="Estilismo" loading="lazy">
-  </button>
-  <figcaption class="tile-caption"><span class="cap-a"></span><span class="cap-b"></span></figcaption>
-</figure>
-
-      <figure class="tile tile--asistencia">
-        <button class="thumb" data-full="estilismos/estilismos2.0.jpg, estilismos/estilismos2.1.jpg, estilismos/estilismos2.2.jpg" aria-label="Ampliar imagen">
-          <img src="estilismos/estilismos2.0.jpg" alt="Asistencia">
+      <!-- PENDIENTE: conejos — asistencia a Dagmar. Las imágenes set_1.jpg y
+           set_1.1.jpg se borraron del repositorio (ver historial de git);
+           hace falta que Elena las vuelva a subir. -->
+      <figure class="tile tile--asistencia is-empty">
+        <button class="thumb" data-full="set_1.jpg, set_1.1.jpg" aria-label="Ampliar imagen">
+          <img src="set_1.jpg" alt="Asistencia" onerror="this.closest('.tile').classList.add('is-empty')">
         </button>
-        <figcaption class="tile-caption"><span class="cap-a">Asistencia a Camille Ange Pailler</span><span class="cap-b">Autre MAgazine</span></figcaption>
+        <figcaption class="tile-caption"><span class="cap-a">Asistencia a Dagmar</span><span class="cap-b">Set Designer</span></figcaption>
       </figure>
 
       <figure class="tile">
-  <div class="video-embed">
-    <iframe
-      src="https://www.youtube.com/embed/V3IVdLo-2NM?autoplay=1&mute=1&loop=1&playlist=V3IVdLo-2NM&controls=0&modestbranding=1&rel=0&playsinline=1"
-      title="Vídeo"
-      allow="autoplay; encrypted-media"
-      loading="lazy">
-    </iframe>
-  </div>
-  <figcaption class="tile-caption"><span class="cap-a">Vídeo</span><span class="cap-b">Colaboración</span></figcaption>
-</figure>
-
-      <figure class="tile">
-        <button class="thumb" data-full="estilismos/estilismos3.0.jpg, estilismos/estilismos3.1.jpg" aria-label="Ampliar imagen">
-          <img src="estilismos/estilismos3.0.jpg" alt="">
+        <button class="thumb" data-full="set_2.jpg" aria-label="Ampliar imagen">
+          <img src="set_2.jpg" alt="">
         </button>
+        <figcaption class="tile-caption"><span class="cap-a">@colmadosanisidro</span><span class="cap-b"></span></figcaption>
+      </figure>
+
+      <!-- PENDIENTE: videoclip "Lorna 2.0" — falta el enlace del vídeo.
+           Sin créditos: el arte es de Elena. -->
+      <figure class="tile">
+        <div class="video-embed">
+          <iframe
+            src=""
+            title="Lorna 2.0"
+            allow="autoplay; encrypted-media"
+            loading="lazy">
+          </iframe>
+        </div>
         <figcaption class="tile-caption"><span class="cap-a"></span><span class="cap-b"></span></figcaption>
       </figure>
 
       <figure class="tile tile--asistencia">
-        <button class="thumb" data-full="estilismos/estilismos4.0.jpg" aria-label="Ampliar imagen">
-          <img src="estilismos/estilismos4.0.jpg" alt="Asistencia">
+        <button class="thumb" data-full="set_3.jpg, set_3.1.jpg" aria-label="Ampliar imagen">
+          <img src="set_3.jpg" alt="Asistencia">
         </button>
-        <figcaption class="tile-caption"><span class="cap-a">Asistencia a Davide Andreatta</span><span class="cap-b">To Be Megazine</span></figcaption>
+        <figcaption class="tile-caption"><span class="cap-a">Asistencia a Pablo Chamorro</span><span class="cap-b">@oficialedel</span></figcaption>
       </figure>
 
       <figure class="tile">
-        <button class="thumb" data-full="estilismos/estilismos5.0.jpg" aria-label="Ampliar imagen">
-          <img src="estilismos/estilismos5.0.jpg" alt="Estilismo">
+        <button class="thumb" data-full="set_4.jpeg, set_4.1.jpeg" aria-label="Ampliar imagen">
+          <img src="set_4.jpeg" alt="">
         </button>
-        <figcaption class="tile-caption"><span class="cap-a"></span><span class="cap-b"></span></figcaption>
-      </figure>
-
-      <figure class="tile tile--asistencia">
-        <button class="thumb" data-full="estilismos/estilismos6.0.jpg, estilismos/estilismos6.1.jpg" aria-label="Ampliar imagen">
-          <img src="estilismos/estilismos6.0.jpg" alt="Asistencia">
-        </button>
-        <figcaption class="tile-caption"><span class="cap-a">Asistencia a Giovanni Beda</span><span class="cap-b">Les Hommes Publics</span></figcaption>
+        <figcaption class="tile-caption"><span class="cap-a">@fuuuckingyoung</span><span class="cap-b"></span></figcaption>
       </figure>
 
       <figure class="tile">
-        <button class="thumb" data-full="estilismos/estilismos7.0.jpg, estilismos/estilismos7.1.jpg" aria-label="Ampliar imagen">
-          <img src="estilismos/estilismos7.0.jpg" alt="Estilismo">
+        <button class="thumb" data-full="set_5.jpg" aria-label="Ampliar imagen">
+          <img src="set_5.jpg" alt="">
         </button>
-        <figcaption class="tile-caption"><span class="cap-a"></span><span class="cap-b"></span></figcaption>
-      </figure>
-
-      <figure class="tile tile--asistencia">
-        <button class="thumb" data-full="estilismos/estilismos8.0.jpg, estilismos/estilismos8.1.jpg" aria-label="Ampliar imagen">
-          <img src="estilismos/estilismos8.0.jpg" alt="Asistencia">
-        </button>
-        <figcaption class="tile-caption"><span class="cap-a">Asistencia a Jonathan Hunguet</span><span class="cap-b">Behind the blind</span></figcaption>
-      </figure>
-
-      <figure class="tile">
-        <button class="thumb" data-full="estilismos/estilismos9.0.jpg, estilismos/estilismos9.1.jpg" aria-label="Ampliar imagen">
-          <img src="estilismos/estilismos9.0.jpg" alt="Estilismo, sin título">
-        </button>
-        <figcaption class="tile-caption"><span class="cap-a"></span><span class="cap-b"></span></figcaption>
-      </figure>
-
-      <figure class="tile">
-        <button class="thumb" data-full="estilismos/estilismos10.jpg, estilismos/estilismos10.jpg" aria-label="Ampliar imagen">
-          <img src="estilismos/estilismos10.jpg" alt="Estilismo, sin título">
-        </button>
-        <figcaption class="tile-caption"><span class="cap-a"></span><span class="cap-b"></span></figcaption>
+        <figcaption class="tile-caption"><span class="cap-a">@nii.hai</span><span class="cap-b"></span></figcaption>
       </figure>
 
     </div>
