@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const isOpen = siteNav.classList.toggle('is-open');
       navToggle.classList.toggle('is-open', isOpen);
       navToggle.setAttribute('aria-expanded', String(isOpen));
+      document.body.classList.toggle('menu-open', isOpen);
     });
 
     siteNav.querySelectorAll('a').forEach(link => {
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         siteNav.classList.remove('is-open');
         navToggle.classList.remove('is-open');
         navToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
       });
     });
   }
@@ -171,3 +173,42 @@ window.addEventListener('resize', () => {
   // rebuild here was what made things flicker oddly on mobile.
   resizeTimer = setTimeout(() => initMasonry(), 200);
 });
+
+/* ---------- Vídeos de YouTube en móvil ----------
+   En iPhone/Android YouTube no se reproduce solo dentro de la web: enseña su
+   portada con título y botón rojo, y al tocarlo salta a la app de YouTube.
+   En pantallas táctiles cambiamos cada vídeo por su imagen de portada (sin
+   marca de YouTube) y, al tocarla, lo abrimos grande aquí mismo, con sonido. */
+(function () {
+  if (!window.matchMedia('(hover: none)').matches) return; // ordenador: se queda en bucle como está
+
+  const frames = document.querySelectorAll('.video-embed iframe[src*="youtube.com/embed/"]');
+  if (!frames.length) return;
+
+  const box = document.createElement('div');
+  box.className = 'video-lightbox';
+  box.hidden = true;
+  box.innerHTML = '<button class="video-lightbox-close" aria-label="Cerrar">×</button><div class="video-lightbox-frame"></div>';
+  document.body.appendChild(box);
+  const holder = box.querySelector('.video-lightbox-frame');
+  const close = () => { holder.innerHTML = ''; box.hidden = true; document.body.classList.remove('menu-open'); };
+  box.querySelector('.video-lightbox-close').addEventListener('click', close);
+  box.addEventListener('click', e => { if (e.target === box) close(); });
+
+  frames.forEach(frame => {
+    const id = (frame.src.match(/embed\/([\w-]{11})/) || [])[1];
+    if (!id) return;
+    const poster = document.createElement('button');
+    poster.className = 'video-poster';
+    poster.setAttribute('aria-label', 'Reproducir vídeo' + (frame.title ? ' — ' + frame.title : ''));
+    poster.innerHTML = '<img src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">';
+    poster.addEventListener('click', () => {
+      holder.innerHTML = '<iframe src="https://www.youtube.com/embed/' + id +
+        '?autoplay=1&playsinline=1&rel=0&modestbranding=1" title="' + (frame.title || 'Vídeo') +
+        '" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
+      box.hidden = false;
+      document.body.classList.add('menu-open'); // bloquea el scroll de detrás
+    });
+    frame.replaceWith(poster);
+  });
+})();
