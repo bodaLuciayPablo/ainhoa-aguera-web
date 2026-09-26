@@ -105,7 +105,8 @@ function initMasonry(force) {
   const grid = document.querySelector('.tile-grid');
   if (!grid) return;
 
-  const columnCount = getColumnCount();
+  // .tile-grid--pair (obra personal): siempre dos columnas, una imagen al lado de la otra
+  const columnCount = grid.classList.contains('tile-grid--pair') ? 2 : getColumnCount();
   if (!force && columnCount === lastColumnCount) return; // breakpoint didn't change — do nothing
   lastColumnCount = columnCount;
 
@@ -131,7 +132,9 @@ function initMasonry(force) {
   // as long as there's another column to use.
   const isVideo = el => !!el.querySelector('.video-embed');
   const hasVideo = col => col && Array.from(col.children).some(isVideo);
-  tiles.forEach(tile => {
+  const isPair = grid.classList.contains('tile-grid--pair');
+  tiles.forEach((tile, i) => {
+    if (isPair) { columns[i % 2].appendChild(tile); return; } // izquierda, derecha, izquierda...
     let candidates = columns;
     if (isVideo(tile)) {
       const free = columns.filter((col, i) =>
@@ -141,7 +144,9 @@ function initMasonry(force) {
     }
     let shortest = candidates[0];
     candidates.forEach(col => {
-      if (col.offsetHeight < shortest.offsetHeight) shortest = col;
+      // Empate de alturas (p. ej. fotos aún sin cargar): gana la columna con menos piezas
+      if (col.offsetHeight < shortest.offsetHeight ||
+          (col.offsetHeight === shortest.offsetHeight && col.children.length < shortest.children.length)) shortest = col;
     });
     shortest.appendChild(tile);
   });
