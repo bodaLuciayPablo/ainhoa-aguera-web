@@ -112,6 +112,10 @@ function initMasonry(force) {
   const tiles = Array.from(grid.children).filter(el => !el.classList.contains('tile-grid-col'))
     .concat(Array.from(grid.querySelectorAll('.tile-grid-col > *')));
   if (tiles.length === 0) return;
+  // Remember the original HTML order the first time, and always rebuild from
+  // it — otherwise every re-pass reads tiles column by column and shuffles them.
+  tiles.forEach((t, i) => { if (t.dataset.order === undefined) t.dataset.order = i; });
+  tiles.sort((a, b) => a.dataset.order - b.dataset.order);
 
   grid.innerHTML = '';
   const columns = [];
@@ -122,9 +126,21 @@ function initMasonry(force) {
     columns.push(col);
   }
 
+  // Videos (.video-embed) shouldn't end up next to each other: when placing
+  // a video, skip columns that already hold one or sit beside one that does,
+  // as long as there's another column to use.
+  const isVideo = el => !!el.querySelector('.video-embed');
+  const hasVideo = col => col && Array.from(col.children).some(isVideo);
   tiles.forEach(tile => {
-    let shortest = columns[0];
-    columns.forEach(col => {
+    let candidates = columns;
+    if (isVideo(tile)) {
+      const free = columns.filter((col, i) =>
+        !hasVideo(col) && !hasVideo(columns[i - 1]) && !hasVideo(columns[i + 1]));
+      const noSameCol = columns.filter(col => !hasVideo(col));
+      candidates = free.length ? free : (noSameCol.length ? noSameCol : columns);
+    }
+    let shortest = candidates[0];
+    candidates.forEach(col => {
       if (col.offsetHeight < shortest.offsetHeight) shortest = col;
     });
     shortest.appendChild(tile);
