@@ -188,9 +188,10 @@ window.addEventListener('resize', () => {
   const box = document.createElement('div');
   box.className = 'video-lightbox';
   box.hidden = true;
-  box.innerHTML = '<button class="video-lightbox-close" aria-label="Cerrar">×</button><div class="video-lightbox-frame"></div>';
+  box.innerHTML = '<button class="video-lightbox-close" aria-label="Cerrar">×</button><div class="video-lightbox-frame"></div><figcaption class="lightbox-caption" hidden></figcaption>';
   document.body.appendChild(box);
   const holder = box.querySelector('.video-lightbox-frame');
+  const caption = box.querySelector('.lightbox-caption');
   const close = () => { holder.innerHTML = ''; box.hidden = true; document.body.classList.remove('menu-open'); };
   box.querySelector('.video-lightbox-close').addEventListener('click', close);
   box.addEventListener('click', e => { if (e.target === box) close(); });
@@ -206,6 +207,11 @@ window.addEventListener('resize', () => {
       holder.innerHTML = '<iframe src="https://www.youtube.com/embed/' + id +
         '?autoplay=1&playsinline=1&rel=0&modestbranding=1" title="' + (frame.title || 'Vídeo') +
         '" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
+      // Créditos del vídeo (los mismos del pie de la pieza), igual que en las fotos
+      const fc = poster.closest('figure')?.querySelector('figcaption');
+      const hasText = fc && fc.textContent.trim().length > 0;
+      caption.innerHTML = hasText ? fc.innerHTML : '';
+      caption.hidden = !hasText;
       box.hidden = false;
       document.body.classList.add('menu-open'); // bloquea el scroll de detrás
     });
