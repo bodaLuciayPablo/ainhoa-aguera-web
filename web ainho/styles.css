@@ -474,7 +474,7 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
 }
 
 @media (max-width: 600px){
-  .cat-links{ grid-template-columns: 1fr; gap: 0; margin-top: 0; }
+  .cat-links{ grid-template-columns: 1fr; gap: 0; margin-top: 32px; }
   .cat-link-label{
     opacity: 1;
     align-items: flex-end;
