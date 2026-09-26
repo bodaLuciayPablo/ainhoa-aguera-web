@@ -45,6 +45,7 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
   padding: 26px var(--gutter);
   background: rgba(255,255,255,0.94);
   backdrop-filter: blur(6px);
+  transform: translateZ(0); /* capa propia, siempre por encima de los vídeos */
 }
 .wordmark{
   font-family: var(--font-display);
@@ -206,6 +207,7 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
 .thumb{
   display: block;
   width: 100%;
+  padding: 0; /* los <button> traen relleno por defecto: descuadraba las fotos respecto a los vídeos */
   overflow: hidden;
   position: relative;
 }
@@ -223,6 +225,12 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #000;
+  /* Obliga a Safari (iPhone) a recortar de verdad el vídeo ampliado y a
+     mantenerlo en su capa, por debajo del menú. */
+  isolation: isolate;
+  transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  z-index: 0;
 }
 .video-embed iframe{
   position: absolute;
@@ -235,7 +243,12 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
      ratón, YouTube no muestra sus capas al pasar el cursor, y el hover
      llega a la figura, así que el pie con los créditos sigue saliendo. */
   transform: scale(1.2);
-  pointer-events: none;
+}
+/* Solo con ratón: YouTube no reacciona al pasar el cursor (no saca su logo).
+   En móvil se deja tocar el vídeo, por si el teléfono no lo reproduce solo
+   (modo ahorro de batería, ahorro de datos...). */
+@media (hover: hover) and (pointer: fine){
+  .video-embed iframe{ pointer-events: none; }
 }
 
 .tile.is-empty .thumb{
@@ -426,6 +439,9 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
 
 @media (max-width: 640px){
   .nav-toggle{ display: flex; }
+  /* En móvil, cabecera y menú opacos: el desenfoque con vídeos debajo
+     se ve mal en iPhone. */
+  .site-header{ background: var(--paper); backdrop-filter: none; -webkit-backdrop-filter: none; z-index: 100; }
   .site-nav{
     position: absolute;
     top: 100%;
