@@ -230,6 +230,12 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
   width: 100%;
   height: 100%;
   border: 0;
+  /* Ampliado un poco y recortado por .video-embed (overflow: hidden) para
+     esconder el título y el logo de YouTube en los bordes. Sin eventos de
+     ratón, YouTube no muestra sus capas al pasar el cursor, y el hover
+     llega a la figura, así que el pie con los créditos sigue saliendo. */
+  transform: scale(1.2);
+  pointer-events: none;
 }
 
 .tile.is-empty .thumb{
