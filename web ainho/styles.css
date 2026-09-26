@@ -45,7 +45,6 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
   padding: 26px var(--gutter);
   background: rgba(255,255,255,0.94);
   backdrop-filter: blur(6px);
-  transform: translateZ(0); /* capa propia, siempre por encima de los vídeos */
 }
 .wordmark{
   font-family: var(--font-display);
@@ -442,23 +441,31 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
   /* En móvil, cabecera y menú opacos: el desenfoque con vídeos debajo
      se ve mal en iPhone. */
   .site-header{ background: var(--paper); backdrop-filter: none; -webkit-backdrop-filter: none; z-index: 100; }
+  /* Menú móvil a pantalla completa: tapa toda la página (sin cortar textos
+     ni dejar vídeos asomando) y se abre con un fundido suave. */
   .site-nav{
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
+    position: fixed;
+    inset: 0;
+    z-index: -1; /* detrás de la cabecera (nombre y aspa siguen visibles) */
     flex-direction: column;
-    align-items: flex-end;
-    gap: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    padding: 0 var(--gutter);
     background: var(--paper);
-    box-shadow: 0 1px 0 var(--line);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
   }
-  .site-nav.is-open{ max-height: 240px; padding: 4px var(--gutter) 20px; }
+  .site-nav.is-open{
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.25s ease;
+  }
   .site-nav a{
-    padding: 10px 0;
+    font-size: 15px;
+    letter-spacing: 0.16em;
+    padding: 4px 0;
   }
 }
 
@@ -486,4 +493,62 @@ button{ font-family: inherit; cursor: pointer; background: none; border: none; c
   height: 100%;
   object-fit: cover;
   border: 0;
+}
+
+/* Página bloqueada mientras el menú móvil está abierto */
+body.menu-open{ overflow: hidden; }
+
+/* ---------- Vídeos en móvil: portada + reproducción al tocar ---------- */
+.video-poster{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  display: block;
+  background: #000;
+}
+.video-poster img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.video-poster::after{ /* triángulo de play discreto, en el estilo de la web */
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin: -9px 0 0 -6px;
+  border-style: solid;
+  border-width: 9px 0 9px 15px;
+  border-color: transparent transparent transparent #fdfcf9;
+  filter: drop-shadow(0 0 6px rgba(0,0,0,0.45));
+}
+.video-lightbox{
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(20,19,15,0.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gutter);
+}
+.video-lightbox[hidden]{ display: none; }
+.video-lightbox-frame{
+  width: 100%;
+  max-width: 1100px;
+  aspect-ratio: 16 / 9;
+}
+.video-lightbox-frame iframe{ width: 100%; height: 100%; border: 0; }
+.video-lightbox-close{
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 34px;
+  line-height: 1;
+  color: #fdfcf9;
+  padding: 8px;
 }
