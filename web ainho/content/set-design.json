@@ -4,9 +4,8 @@
       "/fotos/set-design/set_1.jpg",
       "/fotos/set-design/set_1.1.jpg"
     ],
-    "video": "",
     "titulo": "Asistencia a Dagmar",
-    "subtitulo": "Set Designer",
+    "subtitulo": "Kuurth",
     "asistencia": true
   },
   {
@@ -16,16 +15,11 @@
       "/fotos/set-design/set_2.3.jpg",
       "/fotos/set-design/set_2.4.jpg"
     ],
-    "video": "",
     "titulo": "@colmadosanisidro",
-    "subtitulo": "",
     "asistencia": false
   },
   {
-    "imagenes": [],
     "video": "https://www.youtube.com/watch?v=pXg13ZNFLeE",
-    "titulo": "",
-    "subtitulo": "",
     "asistencia": false
   },
   {
@@ -33,7 +27,6 @@
       "/fotos/set-design/set_3.jpg",
       "/fotos/set-design/set_3.1.jpg"
     ],
-    "video": "",
     "titulo": "Asistencia a Pablo Chamorro",
     "subtitulo": "@oficialedel",
     "asistencia": true
@@ -43,18 +36,23 @@
       "/fotos/set-design/set_4.jpeg",
       "/fotos/set-design/set_4.1.jpeg"
     ],
-    "video": "",
     "titulo": "@fuuuckingyoung",
-    "subtitulo": "",
     "asistencia": false
   },
   {
     "imagenes": [
       "/fotos/set-design/set_5.jpg"
     ],
-    "video": "",
     "titulo": "@nii.hai",
-    "subtitulo": "",
     "asistencia": false
+  },
+  {
+    "imagenes": [
+      "/fotos/IMG_7247.webp",
+      "/fotos/Diseño sin título - 4.png"
+    ],
+    "titulo": "Asistencia a Dagmar",
+    "subtitulo": "Lady Pipa",
+    "asistencia": true
   }
 ]
