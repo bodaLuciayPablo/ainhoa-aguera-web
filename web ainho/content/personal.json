@@ -1,0 +1,24 @@
+[
+  {
+    "imagenes": [
+      "/fotos/personal/personal1.jpg",
+      "/fotos/personal/personal1.1.jpg"
+    ],
+    "video": "",
+    "titulo": "Manta de Patchwork",
+    "subtitulo": "2023",
+    "asistencia": false
+  },
+  {
+    "imagenes": [
+      "/fotos/personal/personal2.0.jpg",
+      "/fotos/personal/personal2.1.jpg",
+      "/fotos/personal/personal2.2.jpg",
+      "/fotos/personal/personal2.3.jpg"
+    ],
+    "video": "",
+    "titulo": "marzo 2020",
+    "subtitulo": "2022",
+    "asistencia": false
+  }
+]

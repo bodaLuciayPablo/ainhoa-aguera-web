@@ -1,3 +1,80 @@
+/* ---------- Contenido editable (Pages CMS) ----------
+   Los textos, portadas y galerías viven en content/*.json. Ainhoa los cambia
+   desde Pages CMS; cada cambio es un commit en GitHub y Cloudflare vuelve a
+   publicar la web. Aquí se leen esos JSON y se pinta la página. */
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
+  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+const getJSON = url => fetch(url, { cache: 'no-cache' }).then(r => {
+  if (!r.ok) throw new Error(url + ' → ' + r.status);
+  return r.json();
+});
+
+// Acepta cualquier enlace de YouTube: watch?v=, youtu.be/, /embed/, /shorts/
+const youtubeId = url => (String(url).match(/(?:youtu\.be\/|v=|\/embed\/|\/shorts\/)([\w-]{11})/) || [])[1];
+const isVideoFile = url => /\.(mp4|webm|mov)(\?|$)/i.test(url || '');
+
+function tileHTML(item) {
+  const imgs = (item.imagenes || []).filter(Boolean);
+  const video = (item.video || '').trim();
+  const titulo = (item.titulo || '').trim();
+  const subtitulo = (item.subtitulo || '').trim();
+  const alt = [titulo, subtitulo].filter(Boolean).join(', ') || (item.asistencia ? 'Asistencia' : 'Imagen');
+  let media = '';
+
+  const ytId = video && youtubeId(video);
+  if (ytId) {
+    media = '<div class="video-embed"><iframe src="https://www.youtube.com/embed/' + ytId +
+      '?autoplay=1&mute=1&loop=1&playlist=' + ytId + '&controls=0&modestbranding=1&rel=0&playsinline=1"' +
+      ' title="' + esc(titulo || 'Vídeo') + '" allow="autoplay; encrypted-media" loading="lazy"></iframe></div>';
+  } else if (isVideoFile(video)) {
+    media = '<div class="video-embed"><video src="' + esc(video) + '"' +
+      (imgs[0] ? ' poster="' + esc(imgs[0]) + '"' : '') +
+      ' autoplay muted loop playsinline preload="metadata" aria-label="' + esc(alt) + '"></video></div>';
+  } else if (imgs.length) {
+    media = '<button class="thumb" data-full="' + esc(imgs.join(', ')) + '" aria-label="Ampliar imagen — ' + esc(alt) + '">' +
+      '<img src="' + esc(imgs[0]) + '" alt="' + esc(alt) + '"' +
+      ' onerror="this.closest(\'.tile\').classList.add(\'is-empty\')"></button>';
+  } else {
+    return ''; // pieza vacía (sin foto ni vídeo): no se pinta
+  }
+
+  const caption = (titulo || subtitulo)
+    ? '<figcaption class="tile-caption"><span class="cap-a">' + esc(titulo) + '</span><span class="cap-b">' + esc(subtitulo) + '</span></figcaption>'
+    : '';
+  return '<figure class="tile' + (item.asistencia ? ' tile--asistencia' : '') + '">' + media + caption + '</figure>';
+}
+
+// Rellena [data-field] dentro de un bloque con data-source (inicio, sobre mí, contacto)
+function fillFields(root, data) {
+  root.querySelectorAll('[data-field]').forEach(el => {
+    const value = data[el.dataset.field];
+    if (value == null || value === '') return; // si falta algo, se queda lo que trae el HTML
+    if (el.tagName === 'IMG') {
+      el.src = value;
+    } else if (el.tagName === 'A' && el.dataset.field === 'email') {
+      el.href = 'mailto:' + value;
+      el.textContent = value;
+    } else if (el.tagName === 'A') {
+      el.href = value;
+    } else {
+      el.textContent = value;
+    }
+  });
+}
+
+const contentReady = Promise.all([
+  ...Array.from(document.querySelectorAll('.tile-grid[data-source]')).map(grid =>
+    getJSON(grid.dataset.source)
+      .then(items => { grid.innerHTML = (Array.isArray(items) ? items : []).map(tileHTML).join(''); })
+      .catch(err => console.error('No se pudo cargar la galería:', err))
+      .finally(() => grid.removeAttribute('aria-busy'))),
+  ...Array.from(document.querySelectorAll(':not(.tile-grid)[data-source]')).map(block =>
+    getJSON(block.dataset.source)
+      .then(data => fillFields(block, data))
+      .catch(err => console.error('No se pudo cargar el contenido:', err)))
+]);
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* Mobile burger menu */
@@ -72,8 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = '';
     };
 
-    document.querySelectorAll('.thumb').forEach(thumb => {
-      thumb.addEventListener('click', () => openLightbox(thumb));
+    // Delegado: las fotos llegan después, desde content/*.json
+    document.addEventListener('click', (event) => {
+      const thumb = event.target.closest('.thumb');
+      if (thumb) openLightbox(thumb);
     });
 
     lightboxClose.addEventListener('click', closeLightbox);
@@ -154,15 +233,25 @@ function initMasonry(force) {
   });
 }
 
-/* Run immediately — this script tag sits at the end of <body>, so the
+/* Masonry: las piezas se pintan desde content/*.json (ver arriba), así que
+   la primera pasada espera a contentReady. Notas originales:
    gallery markup already exists by the time it executes. Waiting for
    window's "load" event (as before) meant sitting with big, unboxed
    images until every photo AND the video had finished downloading —
    that's the ugly flash on pages with lots of images, like estilismo.
    We still do one forced re-pass on "load" to rebalance column heights
    once the real image sizes are known. */
-initMasonry();
-window.addEventListener('load', () => initMasonry(true));
+// Primero hay que pintar las piezas desde el JSON; luego, cuando las fotos ya
+// tienen su tamaño real, una segunda pasada reequilibra las columnas.
+contentReady.then(() => {
+  initMasonry(true);
+  setupYouTubeMobile();
+  const grid = document.querySelector('.tile-grid');
+  if (!grid) return;
+  const pending = Array.from(grid.querySelectorAll('img')).filter(img => !img.complete)
+    .map(img => new Promise(res => { img.addEventListener('load', res, { once: true }); img.addEventListener('error', res, { once: true }); }));
+  Promise.all(pending).then(() => initMasonry(true));
+});
 let resizeTimer;
 window.addEventListener('resize', () => {
   clearTimeout(resizeTimer);
@@ -179,7 +268,7 @@ window.addEventListener('resize', () => {
    portada con título y botón rojo, y al tocarlo salta a la app de YouTube.
    En pantallas táctiles cambiamos cada vídeo por su imagen de portada (sin
    marca de YouTube) y, al tocarla, lo abrimos grande aquí mismo, con sonido. */
-(function () {
+function setupYouTubeMobile() {
   if (!window.matchMedia('(hover: none)').matches) return; // ordenador: se queda en bucle como está
 
   const frames = document.querySelectorAll('.video-embed iframe[src*="youtube.com/embed/"]');
@@ -217,4 +306,4 @@ window.addEventListener('resize', () => {
     });
     frame.replaceWith(poster);
   });
-})();
+}

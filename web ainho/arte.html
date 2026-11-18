@@ -26,60 +26,10 @@
 <main>
   <p class="crumb"><a href="index.html">Trabajo</a> — Set Designer</p>
 
-  <!-- Cada foto muestra sus créditos al pasar el cursor (o al tocar, en móvil).
-       Las fotos de asistencia llevan la clase "tile tile--asistencia": eso
-       añade el pequeño ✱ fijo en la esquina, además de la etiqueta habitual. -->
-  <section class="work">
-    <div class="tile-grid">
-
-      <figure class="tile tile--asistencia">
-        <button class="thumb" data-full="set_1.jpg, set_1.1.jpg" aria-label="Ampliar imagen">
-          <img src="set_1.jpg" alt="Asistencia">
-        </button>
-        <figcaption class="tile-caption"><span class="cap-a">Asistencia a Dagmar</span><span class="cap-b">Set Designer</span></figcaption>
-      </figure>
-
-      <figure class="tile">
-        <button class="thumb" data-full="set_2.jpg, set_2.2.jpg, set_2.3.jpg, set_2.4.jpg" aria-label="Ampliar imagen">
-          <img src="set_2.jpg" alt="">
-        </button>
-        <figcaption class="tile-caption"><span class="cap-a">@colmadosanisidro</span><span class="cap-b"></span></figcaption>
-      </figure>
-
-      <!-- Videoclip "2.0 #1" de l0rna. Sin créditos: el arte es de Elena. -->
-      <figure class="tile">
-        <div class="video-embed">
-          <iframe
-            src="https://www.youtube.com/embed/pXg13ZNFLeE?autoplay=1&mute=1&loop=1&playlist=pXg13ZNFLeE&controls=0&modestbranding=1&rel=0&playsinline=1"
-            title="l0rna — 2.0 #1"
-            allow="autoplay; encrypted-media"
-            loading="lazy">
-          </iframe>
-        </div>
-      </figure>
-
-      <figure class="tile tile--asistencia">
-        <button class="thumb" data-full="set_3.jpg, set_3.1.jpg" aria-label="Ampliar imagen">
-          <img src="set_3.jpg" alt="Asistencia">
-        </button>
-        <figcaption class="tile-caption"><span class="cap-a">Asistencia a Pablo Chamorro</span><span class="cap-b">@oficialedel</span></figcaption>
-      </figure>
-
-      <figure class="tile">
-        <button class="thumb" data-full="set_4.jpeg, set_4.1.jpeg" aria-label="Ampliar imagen">
-          <img src="set_4.jpeg" alt="">
-        </button>
-        <figcaption class="tile-caption"><span class="cap-a">@fuuuckingyoung</span><span class="cap-b"></span></figcaption>
-      </figure>
-
-      <figure class="tile">
-        <button class="thumb" data-full="set_5.jpg" aria-label="Ampliar imagen">
-          <img src="set_5.jpg" alt="">
-        </button>
-        <figcaption class="tile-caption"><span class="cap-a">@nii.hai</span><span class="cap-b"></span></figcaption>
-      </figure>
-
-    </div>
+    <!-- Las piezas de esta galería NO se editan aquí: salen de content/set-design.json,
+       que Ainhoa gestiona desde Pages CMS. script.js las pinta al cargar. -->
+<section class="work">
+    <div class="tile-grid" data-source="content/set-design.json" aria-busy="true"></div>
   </section>
 </main>
 

@@ -1,0 +1,114 @@
+[
+  {
+    "imagenes": [
+      "/fotos/estilismo/estilismos1.0.jpg",
+      "/fotos/estilismo/estilismos1.1.jpg"
+    ],
+    "video": "",
+    "titulo": "",
+    "subtitulo": "",
+    "asistencia": false
+  },
+  {
+    "imagenes": [
+      "/fotos/estilismo/estilismos2.0.jpg",
+      "/fotos/estilismo/estilismos2.1.jpg",
+      "/fotos/estilismo/estilismos2.2.jpg"
+    ],
+    "video": "",
+    "titulo": "Asistencia a Camille Ange Pailler",
+    "subtitulo": "Autre MAgazine",
+    "asistencia": true
+  },
+  {
+    "imagenes": [],
+    "video": "https://www.youtube.com/watch?v=V3IVdLo-2NM",
+    "titulo": "Asistencia a Gaby Camejo",
+    "subtitulo": "Vestuario de Natasha Ofili — vídeo de Coldplay",
+    "asistencia": true
+  },
+  {
+    "imagenes": [
+      "/fotos/estilismo/estilismos3.0.jpg",
+      "/fotos/estilismo/estilismos3.1.jpg"
+    ],
+    "video": "",
+    "titulo": "",
+    "subtitulo": "",
+    "asistencia": false
+  },
+  {
+    "imagenes": [
+      "/fotos/estilismo/estilismos4.0.jpg"
+    ],
+    "video": "",
+    "titulo": "Asistencia a Davide Andreatta",
+    "subtitulo": "To Be Megazine",
+    "asistencia": true
+  },
+  {
+    "imagenes": [
+      "/fotos/estilismo/estilismos5.0.jpg"
+    ],
+    "video": "",
+    "titulo": "",
+    "subtitulo": "",
+    "asistencia": false
+  },
+  {
+    "imagenes": [
+      "/fotos/estilismo/estilismos6.0.jpg",
+      "/fotos/estilismo/estilismos6.1.jpg"
+    ],
+    "video": "",
+    "titulo": "Asistencia a Giovanni Beda",
+    "subtitulo": "Les Hommes Publics",
+    "asistencia": true
+  },
+  {
+    "imagenes": [
+      "/fotos/estilismo/estilismos7.0.jpg",
+      "/fotos/estilismo/estilismos7.1.jpg"
+    ],
+    "video": "",
+    "titulo": "",
+    "subtitulo": "",
+    "asistencia": false
+  },
+  {
+    "imagenes": [],
+    "video": "https://www.youtube.com/watch?v=5Sdbi55HY0o",
+    "titulo": "Asistencia a Chamo Armada",
+    "subtitulo": "Vestuario para bailarines y talents — Will Smith, «Work of Art»",
+    "asistencia": true
+  },
+  {
+    "imagenes": [
+      "/fotos/estilismo/estilismos8.0.jpg",
+      "/fotos/estilismo/estilismos8.1.jpg"
+    ],
+    "video": "",
+    "titulo": "Asistencia a Jonathan Hunguet",
+    "subtitulo": "Behind the blind",
+    "asistencia": true
+  },
+  {
+    "imagenes": [
+      "/fotos/estilismo/estilismos9.0.jpg",
+      "/fotos/estilismo/estilismos9.1.jpg"
+    ],
+    "video": "",
+    "titulo": "",
+    "subtitulo": "",
+    "asistencia": false
+  },
+  {
+    "imagenes": [
+      "/fotos/estilismo/estilismos10.jpg"
+    ],
+    "video": "",
+    "titulo": "",
+    "subtitulo": "",
+    "asistencia": false
+  }
+]

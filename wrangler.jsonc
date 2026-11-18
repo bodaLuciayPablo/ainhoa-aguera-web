@@ -1,0 +1,10 @@
+// Despliegue en Cloudflare Workers (solo archivos estáticos).
+// Con el Worker conectado a este repo (Workers Builds), cada commit a main
+// —incluidos los que hace Pages CMS— se publica solo.
+{
+  "name": "ainhoa-aguera-web",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./web ainho"
+  }
+}

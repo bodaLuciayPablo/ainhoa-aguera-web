@@ -1,0 +1,131 @@
+# Configuración de Pages CMS (https://pagescms.org)
+# Ainhoa edita desde app.pagescms.org; cada guardado es un commit en este repo
+# y Cloudflare vuelve a publicar la web sola en uno o dos minutos.
+
+media:
+  input: "web ainho/fotos"
+  output: /fotos
+  categories: [image]
+
+content:
+  - name: estilismo
+    label: Estilismo
+    type: file
+    path: "web ainho/content/estilismo.json"
+    format: json
+    list: true
+    fields:
+      - name: imagenes
+        label: Fotos
+        type: image
+        list: true
+        description: La primera es la que se ve en la galería. Las demás aparecen al ampliarla. Si la pieza es un vídeo, déjalo vacío.
+      - name: video
+        label: Vídeo (enlace de YouTube)
+        type: string
+        description: Opcional. Pega el enlace del vídeo tal cual (por ejemplo https://www.youtube.com/watch?v=...).
+      - name: titulo
+        label: Título
+        type: string
+        description: Primera línea del pie, en mayúsculas. Por ejemplo «Asistencia a Davide Andreatta».
+      - name: subtitulo
+        label: Subtítulo
+        type: string
+        description: Segunda línea del pie. Por ejemplo la revista o la marca.
+      - name: asistencia
+        label: Es una asistencia (lleva el ✱)
+        type: boolean
+        default: false
+
+  - name: set-design
+    label: Set Designer
+    type: file
+    path: "web ainho/content/set-design.json"
+    format: json
+    list: true
+    fields:
+      - name: imagenes
+        label: Fotos
+        type: image
+        list: true
+        description: La primera es la que se ve en la galería. Las demás aparecen al ampliarla. Si la pieza es un vídeo, déjalo vacío.
+      - name: video
+        label: Vídeo (enlace de YouTube)
+        type: string
+        description: Opcional. Pega el enlace del vídeo tal cual (por ejemplo https://www.youtube.com/watch?v=...).
+      - name: titulo
+        label: Título
+        type: string
+        description: Primera línea del pie, en mayúsculas. Por ejemplo «Asistencia a Davide Andreatta».
+      - name: subtitulo
+        label: Subtítulo
+        type: string
+        description: Segunda línea del pie. Por ejemplo la revista o la marca.
+      - name: asistencia
+        label: Es una asistencia (lleva el ✱)
+        type: boolean
+        default: false
+
+  - name: personal
+    label: Obra personal
+    type: file
+    path: "web ainho/content/personal.json"
+    format: json
+    list: true
+    fields:
+      - name: imagenes
+        label: Fotos
+        type: image
+        list: true
+        description: La primera es la que se ve en la galería. Las demás aparecen al ampliarla. Si la pieza es un vídeo, déjalo vacío.
+      - name: video
+        label: Vídeo (enlace de YouTube)
+        type: string
+        description: Opcional. Pega el enlace del vídeo tal cual (por ejemplo https://www.youtube.com/watch?v=...).
+      - name: titulo
+        label: Título
+        type: string
+        description: Primera línea del pie, en mayúsculas. Por ejemplo «Asistencia a Davide Andreatta».
+      - name: subtitulo
+        label: Subtítulo
+        type: string
+        description: Segunda línea del pie. Por ejemplo la revista o la marca.
+      - name: asistencia
+        label: Es una asistencia (lleva el ✱)
+        type: boolean
+        default: false
+
+  - name: inicio
+    label: Portada de la web
+    type: file
+    path: "web ainho/content/inicio.json"
+    format: json
+    fields:
+      - name: frase
+        label: Frase de presentación
+        type: string
+      - name: portada_estilismo
+        label: Foto de la tarjeta «Estilismo»
+        type: image
+      - name: portada_set_design
+        label: Foto de la tarjeta «Set Designer»
+        type: image
+      - name: portada_personal
+        label: Foto de la tarjeta «Obra personal»
+        type: image
+
+  - name: sobre-mi
+    label: Sobre mí y contacto
+    type: file
+    path: "web ainho/content/sobre-mi.json"
+    format: json
+    fields:
+      - name: texto
+        label: Texto de «Sobre mí»
+        type: text
+      - name: email
+        label: Email de contacto
+        type: string
+      - name: instagram
+        label: Enlace de Instagram
+        type: string

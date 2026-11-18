@@ -1,0 +1,60 @@
+[
+  {
+    "imagenes": [
+      "/fotos/set-design/set_1.jpg",
+      "/fotos/set-design/set_1.1.jpg"
+    ],
+    "video": "",
+    "titulo": "Asistencia a Dagmar",
+    "subtitulo": "Set Designer",
+    "asistencia": true
+  },
+  {
+    "imagenes": [
+      "/fotos/set-design/set_2.jpg",
+      "/fotos/set-design/set_2.2.jpg",
+      "/fotos/set-design/set_2.3.jpg",
+      "/fotos/set-design/set_2.4.jpg"
+    ],
+    "video": "",
+    "titulo": "@colmadosanisidro",
+    "subtitulo": "",
+    "asistencia": false
+  },
+  {
+    "imagenes": [],
+    "video": "https://www.youtube.com/watch?v=pXg13ZNFLeE",
+    "titulo": "",
+    "subtitulo": "",
+    "asistencia": false
+  },
+  {
+    "imagenes": [
+      "/fotos/set-design/set_3.jpg",
+      "/fotos/set-design/set_3.1.jpg"
+    ],
+    "video": "",
+    "titulo": "Asistencia a Pablo Chamorro",
+    "subtitulo": "@oficialedel",
+    "asistencia": true
+  },
+  {
+    "imagenes": [
+      "/fotos/set-design/set_4.jpeg",
+      "/fotos/set-design/set_4.1.jpeg"
+    ],
+    "video": "",
+    "titulo": "@fuuuckingyoung",
+    "subtitulo": "",
+    "asistencia": false
+  },
+  {
+    "imagenes": [
+      "/fotos/set-design/set_5.jpg"
+    ],
+    "video": "",
+    "titulo": "@nii.hai",
+    "subtitulo": "",
+    "asistencia": false
+  }
+]

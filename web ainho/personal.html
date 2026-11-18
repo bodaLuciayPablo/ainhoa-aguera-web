@@ -26,30 +26,10 @@
 <main>
   <p class="crumb"><a href="index.html">Trabajo</a> — Obra personal</p>
 
-  <section class="work">
-    <div class="tile-grid tile-grid--pair">
-
-      <figure class="tile">
-        <button class="thumb" data-full="personal/personal1.jpg, personal/personal1.1.jpg" aria-label="Ampliar imagen — Manta de Patchwork, 2023">
-          <img src="personal/personal1.jpg" alt="Manta de Patchwork, 2023" loading="lazy" onerror="this.closest('.tile').classList.add('is-empty')">
-        </button>
-        <figcaption class="tile-caption">
-          <span class="cap-a">Manta de Patchwork</span>
-          <span class="cap-b">2023</span>
-        </figcaption>
-      </figure>
-
-      <figure class="tile">
-        <button class="thumb" data-full="personal/personal2.0.jpg, personal/personal2.1.jpg, personal/personal2.2.jpg, personal/personal2.3.jpg" aria-label="Ampliar imagen — marzo 2020, 2022">
-          <img src="personal/personal2.0.jpg" alt="marzo 2020, 2022" loading="lazy" onerror="this.closest('.tile').classList.add('is-empty')">
-        </button>
-        <figcaption class="tile-caption">
-          <span class="cap-a">marzo 2020</span>
-          <span class="cap-b">2022</span>
-        </figcaption>
-      </figure>
-
-    </div>
+    <!-- Las piezas de esta galería NO se editan aquí: salen de content/personal.json,
+       que Ainhoa gestiona desde Pages CMS. script.js las pinta al cargar. -->
+<section class="work">
+    <div class="tile-grid tile-grid--pair" data-source="content/personal.json" aria-busy="true"></div>
   </section>
 </main>
 
